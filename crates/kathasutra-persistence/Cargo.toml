@@ -1,0 +1,12 @@
+[package]
+name = "kathasutra-persistence"
+description = "Backend-neutral persistence ports for KathaSutra"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "AGPL-3.0-or-later"
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true

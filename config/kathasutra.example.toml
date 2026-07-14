@@ -1,0 +1,54 @@
+[server]
+bind = "127.0.0.1:4567"
+public_url = "http://127.0.0.1:4567"
+instance_name = "KathaSutra"
+
+[database]
+backend = "turso"
+
+[database.turso]
+mode = "local"
+path = "/var/lib/kathasutra/kathasutra.db"
+# Optional synchronization mode remains the same Turso backend.
+# sync_url = "https://..."
+# auth_token_file = "/run/secrets/turso-token"
+
+[database.postgres]
+# Used only when `database.backend = "postgres"`.
+url_file = "/run/secrets/postgres-url"
+min_connections = 2
+max_connections = 20
+
+[authentication]
+local_enabled = true
+invite_only = true
+session_cookie_name = "kathasutra_session"
+
+[[authentication.oidc.providers]]
+id = "example"
+issuer = "https://id.example.com"
+client_id = "kathasutra"
+client_secret_file = "/run/secrets/kathasutra-oidc-client-secret"
+scopes = ["openid", "profile", "email", "groups"]
+
+[storage]
+backend = "filesystem"
+root = "/var/lib/kathasutra/media"
+
+[storage.s3]
+# Used only when `storage.backend = "s3"`.
+bucket = "kathasutra"
+region = "auto"
+endpoint = "https://s3.example.com"
+access_key_id_file = "/run/secrets/s3-access-key"
+secret_access_key_file = "/run/secrets/s3-secret-key"
+
+[sources]
+declarative_directory = "/var/lib/kathasutra/sources"
+wasm_directory = "/var/lib/kathasutra/plugins"
+allow_unsigned_plugins = false
+
+[observability]
+log_format = "json"
+metrics_enabled = true
+tracing_enabled = false

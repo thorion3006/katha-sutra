@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
+package kathasutra:source@0.0.0;
+
+interface types {
+    record page-request {
+        page: u32,
+        page-size: u32,
+    }
+
+    record manga-summary {
+        source-key: string,
+        title: string,
+        thumbnail-url: option<string>,
+    }
+
+    record chapter {
+        source-key: string,
+        title: string,
+        chapter-number: option<float64>,
+        volume-number: option<float64>,
+        published-at-unix-ms: option<s64>,
+    }
+
+    variant page-resource {
+        image(tuple<string, list<tuple<string, string>>>),
+        text(string),
+    }
+
+    variant source-error {
+        invalid-input(string),
+        authentication-required(string),
+        rate-limited(option<u64>),
+        upstream-unavailable(string),
+        parsing-failed(string),
+        unsupported(string),
+    }
+}
+
+world source-plugin {
+    export metadata: func() -> string;
+    export search: func(query: string, request: types.page-request) -> result<list<types.manga-summary>, types.source-error>;
+    export chapters: func(manga-key: string) -> result<list<types.chapter>, types.source-error>;
+    export pages: func(chapter-key: string) -> result<list<types.page-resource>, types.source-error>;
+}

@@ -1,0 +1,12 @@
+[package]
+name = "kathasutra-application"
+description = "KathaSutra application use cases and ports"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "AGPL-3.0-or-later"
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
