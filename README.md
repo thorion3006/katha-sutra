@@ -10,14 +10,12 @@ KathaSutra is **not** a port of Suwayomi and does **not** execute Mihon APK or J
 
 ## Project status
 
-The project is in architecture and implementation bootstrap. The normative product specification is [`docs/PRD-katha-sutra.md`](docs/PRD-katha-sutra.md). Implementation work is split into Codex-ready work packages under [`docs/issues/`](docs/issues/).
-
-The current Rust workspace is intentionally minimal. It establishes repository boundaries without pretending unfinished features exist.
+The project is in architecture and implementation bootstrap. The normative product specification is [`docs/PRD-katha-sutra.md`](docs/PRD-katha-sutra.md). Implementation work is tracked as GitHub issues and mirrored under [`docs/issues/`](docs/issues/).
 
 ## Core design
 
 - **Rust server only:** no bundled web client or Electron launcher.
-- **Turso Database by default:** local in-process storage is the zero-service default; optional Turso sync is supported without exposing libSQL as a product backend.
+- **Turso Database by default:** local-only is the zero-service default; remote/synchronised Turso is the same product backend.
 - **PostgreSQL scale-up path:** supported for large deployments, multiple API replicas, and distributed workers.
 - **Multi-user and multi-tenant:** global identities, tenant memberships, tenant-scoped resources, personal reading state, RBAC, quotas, and audit events.
 - **OIDC:** Authorization Code Flow with PKCE, secure server-side sessions, multiple administrator-configured providers, and invite-first provisioning.
@@ -29,13 +27,13 @@ The current Rust workspace is intentionally minimal. It establishes repository b
 
 ```text
 crates/
-  kathasutra-server/          process entrypoint and composition root
-  kathasutra-domain/          domain types and invariants
-  kathasutra-application/     use cases and ports
-  kathasutra-persistence/     backend-neutral persistence contracts
-  kathasutra-auth/            identity, sessions, OIDC, and authorization
-  kathasutra-source-runtime/  declarative and WebAssembly source execution
-  kathasutra-plugin-sdk/      permissively licensed plugin SDK
+  kathasutra-server/
+  kathasutra-domain/
+  kathasutra-application/
+  kathasutra-persistence/
+  kathasutra-auth/
+  kathasutra-source-runtime/
+  kathasutra-plugin-sdk/
 docs/
   PRD-katha-sutra.md
   adr/
@@ -46,28 +44,14 @@ wit/
 
 ## Development bootstrap
 
-Prerequisites:
-
-- Rust stable with the 2024 edition
-- `just` for convenience commands
-- Git
-
 ```bash
 cargo test --workspace
 cargo fmt --all -- --check
 cargo clippy --workspace --all-targets --all-features -- -D warnings
 ```
 
-The default configuration contract is documented in [`config/kathasutra.example.toml`](config/kathasutra.example.toml). It is not yet wired into the bootstrap binary.
-
-## Contributing
-
-Read [`CONTRIBUTING.md`](CONTRIBUTING.md), [`GOVERNANCE.md`](GOVERNANCE.md), and the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md). Contributions use Developer Certificate of Origin sign-off rather than a CLA.
-
-Security vulnerabilities must not be reported in public issues. Follow [`SECURITY.md`](SECURITY.md).
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md), [`GOVERNANCE.md`](GOVERNANCE.md), and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before contributing. Security vulnerabilities must be reported according to [`SECURITY.md`](SECURITY.md), not through public issues.
 
 ## Licensing
 
-The server and most repository content are licensed under **AGPL-3.0-or-later**. The plugin SDK and WIT interface under `crates/kathasutra-plugin-sdk/` and `wit/` are licensed under **MIT OR Apache-2.0**. See [`NOTICE.md`](NOTICE.md) for the exact boundary.
-
-KathaSutra does not grant rights to third-party content, websites, trademarks, or extension implementations. Operators and source-plugin authors are responsible for complying with applicable law and upstream terms.
+The server and most repository content are licensed under **AGPL-3.0-or-later**. The plugin SDK and WIT interface under `crates/kathasutra-plugin-sdk/` and `wit/` are licensed under **MIT OR Apache-2.0**. See [`NOTICE.md`](NOTICE.md).
