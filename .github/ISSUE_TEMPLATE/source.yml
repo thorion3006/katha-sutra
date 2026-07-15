@@ -1,0 +1,34 @@
+name: Source package proposal or defect
+description: Propose or report a declarative or WebAssembly source package
+title: "[Source]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include credentials, private content, CAPTCHA bypasses, DRM circumvention, or unauthorized access instructions."
+  - type: dropdown
+    id: implementation
+    attributes:
+      label: Source implementation
+      options: [Declarative, WebAssembly Component, Browser worker required, Unknown]
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Provenance and license
+      description: Identify original source code, license, attribution, and your right to contribute the port.
+    validations:
+      required: true
+  - type: textarea
+    id: fixtures
+    attributes:
+      label: Sanitized offline fixtures and expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Proposal or defect
+    validations:
+      required: true
