@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible KathaSutra defect
+title: "[Bug]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Do not report vulnerabilities here. Follow SECURITY.md. Remove secrets, cookies, source responses, personal data, and tenant data."
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+    validations:
+      required: true
+  - type: dropdown
+    id: database
+    attributes:
+      label: Database backend
+      options: [Turso local, Turso synchronized, PostgreSQL, Not applicable]
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and redacted logs
+    validations:
+      required: true
